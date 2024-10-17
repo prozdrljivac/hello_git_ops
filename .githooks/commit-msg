@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# The commit message is passed as the first argument to the commit-msg hook
+commit_msg_file=$1
+commit_msg=$(cat "$commit_msg_file")
+
+# Pattern - HGO-<task-id>: Short description
+valid_commit_message_pattern="^HGO-[0-9]+: .+$"
+
+# RULE - Commit message must follow the pattern => HGO-<task-id>: Short description
+if [[ ! $commit_msg =~ $valid_commit_message_pattern ]]; then
+    echo "Error: Commit message does not follow the required format!"
+    echo "The correct format is: HGO-<task-id>: Short description"
+    echo "Example: HGO-123: Fix login issue"
+    exit 1
+fi
+
+# Allow the commit if the message is valid
+exit 0
