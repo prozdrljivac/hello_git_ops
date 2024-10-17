@@ -1,0 +1,24 @@
+#!/bin/bash
+
+current_branch=$(git branch --show-current)
+
+# RULE - Don't allow pusing directly on main
+if [ "$current_branch" == "main" ]; then
+    echo "You are trying to push directly to the main branch!"
+    echo "Please switch to a feature branch and create a pull request."
+    exit 1
+fi
+
+
+# Pattern - feature|bug|enhancement/HGO-<task_id>-(short-description)
+valid_branch_pattern="^(feature|bug|enhancement)/HGO-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$"
+
+# RULE - branch must follow the pattern => feature|bug|enhancement/HGO-<task_id>-(short-description)
+if [[ ! $current_branch =~ $valid_branch_pattern ]]; then
+    echo "Branch name '$current_branch' does not follow the required format!"
+    echo "The correct format is: feature|bug|enhancement/HGO-<task_id>-(short-description)"
+    echo "Examples: feature/HGO-123-fix-login-bug, bug/HGO-456-update-user-profile"
+    exit 1
+fi
+
+exit 0
