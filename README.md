@@ -14,20 +14,23 @@ Navigate to the root of the repository and run the install-hooks.sh script to se
 
 ### Step 2: Verify the Installation
 
-After running the script, you can verify that the hooks are in place by listing the hooks in the .git/hooks directory:
+After running the script, you can verify that the local hooks path is set to .githooks:
 
 ```bash
-ls .git/hooks
+cat .git/config
 ```
 
-You should see symlinks to the custom hooks defined in the .githooks directory, such as:
+Output:
 
 ```text
-commit-msg -> ../../.githooks/commit-msg
-pre-push -> ../../.githooks/pre-push
+[core]
+    ...
+    hooksPath = .githooks
+    ...
+
 ```
 
-### Step 4: Commit and Push Code as Usual
+### Step 3: Commit and Push Code as Usual
 
 Now, when you commit or push code, the hooks will automatically validate your commit messages and branch names based on the defined rules.
 

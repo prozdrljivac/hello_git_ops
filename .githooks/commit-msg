@@ -15,5 +15,4 @@ if [[ ! $commit_msg =~ $valid_commit_message_pattern ]]; then
     exit 1
 fi
 
-# Allow the commit if the message is valid
 exit 0
